@@ -16,7 +16,7 @@ gdt_datadesc:
 	db 11001111b
 	db 0x00
 
-gdt_end;
+gdt_end:
 
 gdt_descriptor:
 	gdt_size:
