@@ -1,5 +1,4 @@
-[org 0x7e00]
-
+[bits 16]
 jmp EnterProtectMode
 
 %include "print.asm"
@@ -32,14 +31,14 @@ StartProtectedMode:
 	mov es, ax
 	mov fs, ax
 	mov gs, ax
-	
+
 	mov [0xb8000], byte 's'
 	mov [0xb8002], byte 'l'
 	mov [0xb8004], byte 'd'
 	mov [0xb8006], byte 'p'
 	mov [0xb8008], byte 'O'
 	mov [0xb800a], byte ''
-	
+
 	call DetectCPUID
 	call DetectLongMode
 	call SetUpIdentityPaging
@@ -47,12 +46,14 @@ StartProtectedMode:
 	jmp codeseg:Start64Bit
 
 [bits 64]
+[extern _start]
 
 Start64Bit:
 	mov edi, 0xb8000
 	mov rax, 0x1f201f201f201f20
 	mov ecx, 500
 	rep stosq
+	call _start
 	jmp $
 
 times 2048-($-$$) db 0
