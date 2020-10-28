@@ -8,8 +8,8 @@ move boot.bin "C:\Users\D\Desktop\sldpOS\sldpOS"
 move ExtendedProgram.o "C:\Users\D\Desktop\sldpOS\sldpOS"
 pause
 cd ..
-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c "./C/Kernel.cpp" -o "Kernel.o"
-ld -T"link.ld"
+wsl g++ -ffreestanding -mno-red-zone -m64 -c "./C/kernel.cpp" -o "Kernel.o"
+ld -Ttext 0x8000 ExtendedProgram.o kernel.o -o kernel.tmp
 objcopy -O binary kernel.tmp kernel.bin
 copy /b boot.bin+kernel.bin bootloader.bin
 pause

@@ -1,5 +1,6 @@
+#include "TextPrint.cpp"
 extern "C" void _start () {
-  int* ptr = (int*)0xb8000;
-  *ptr = 0x505050;
+  SetCursorPosition(PositionFromCoords(1,1));
+  PrintString("Hello World");
   return;
 }
