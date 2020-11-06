@@ -32,14 +32,13 @@ TARGET=bootloader.bin
 
 all: kernel.bin
 kernel.bin: $(OBJS)
-	$(LD) -Ttext 0x8000 $(OBJS) -o kernel.tmp
-	objcopy -O binary kernel.tmp kernel.bin
+	$(LD) -T"link.ld"
 
 %.o: %.asm
 	$(NASM) -iAssembly -f elf64 $^ -o $@
 
 %.o: %.cpp
-	$(CC) -ffreestanding -mno-red-zone -m64 -c $^ -o $@
+	$(CC) -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $^ -o $@
 
 boot.bin: $(BINS)
 	$(NASM) -iAssembly -f bin $^ -o $@

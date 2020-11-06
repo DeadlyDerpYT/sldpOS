@@ -1,10 +1,14 @@
 #include "TextPrint.cpp"
+#include "IDT.cpp"
+#include "TypeDefs.cpp"
+#include "Keyboard.cpp"
 
-extern const char Test[];
 
 extern "C" void _start () {
   SetCursorPosition(0);
-  // PrintString("Hello World");
-  PrintString(Test);
+  InitializeIDT();
+  
+
+  MainKeyboardHandler = KeyboardHandler;
   return;
 }
